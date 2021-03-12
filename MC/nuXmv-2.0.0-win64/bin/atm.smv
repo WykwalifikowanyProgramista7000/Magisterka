@@ -1,0 +1,72 @@
+MODULE main
+VAR
+  s: {welcome, enterPin1, enterPin2, enterPin3, tryAgainPin2, tryAgainPin3, cardTaken, askAmount1, askAmount2, askAmount3, tryAgainAmount2, tryAgainAmount3, takeMoney, takeCard, thanksGoodbye, sorry};
+  
+IVAR  
+  a: {cardIn, correctPin, wrongPin, ack, cancel, fundsOK, fundsWrong, moneyOut, cardOut, none};
+  
+ASSIGN
+  init(s) := welcome;
+  
+  next(s) := case
+    s = welcome         & a = cardIn     : enterPin1;
+    s = enterPin1       & a = correctPin : askAmount1;
+    s = enterPin1       & a = wrongPin   : tryAgainPin2;
+    s = enterPin1       & a = cancel     : takeCard;
+    s = enterPin2       & a = correctPin : askAmount1;
+    s = enterPin2       & a = wrongPin   : tryAgainPin3;
+    s = enterPin2       & a = cancel     : takeCard;
+    s = enterPin3       & a = correctPin : askAmount1;
+    s = enterPin3       & a = wrongPin   : cardTaken;
+    s = enterPin3       & a = cancel     : takeCard;
+    s = tryAgainPin2    & a = ack        : enterPin2;
+    s = tryAgainPin2    & a = cancel     : takeCard;
+    s = tryAgainPin3    & a = ack        : enterPin3;
+    s = tryAgainPin3    & a = cancel     : takeCard;   
+    s = cardTaken                             : sorry;
+    s = askAmount1      & a = fundsOK    : takeMoney;
+    s = askAmount1      & a = fundsWrong : tryAgainAmount2;
+    s = askAmount1      & a = cancel     : takeCard;
+    s = askAmount2      & a = fundsOK    : takeMoney;
+    s = askAmount2      & a = fundsWrong : tryAgainAmount3;    
+    s = askAmount2      & a = cancel     : takeCard;
+    s = askAmount3      & a = fundsOK    : takeMoney;
+    s = askAmount3      & a = fundsWrong : takeCard;
+    s = askAmount3      & a = cancel     : takeCard;
+    s = tryAgainAmount2 & a = ack        : askAmount2;
+    s = tryAgainAmount2 & a = cancel     : takeCard;
+    s = tryAgainAmount3 & a = ack        : askAmount3;
+    s = tryAgainAmount3 & a = cancel     : takeCard;     
+    s = takeMoney       & a = moneyOut   : takeCard;
+    s = takeMoney       & a = none       : takeCard;
+    s = takeCard        & a = cardOut    : thanksGoodbye;
+    s = thanksGoodbye                         : welcome;
+    s = sorry                                 : welcome;
+    TRUE                                          : s;
+  esac;
+  
+TRANS  s = welcome         -> (a = none | a = cardIn)
+TRANS  s = enterPin1       -> (a = none | a = correctPin | a = wrongPin | a = cancel)
+TRANS  s = enterPin2       -> (a = none | a = correctPin | a = wrongPin | a = cancel)
+TRANS  s = enterPin3       -> (a = none | a = correctPin | a = wrongPin | a = cancel)
+TRANS  s = tryAgainPin2    -> (a = none | a = ack | a = cancel)
+TRANS  s = tryAgainPin3    -> (a = none | a = ack | a = cancel)
+TRANS  s = askAmount1      -> (a = none | a = fundsOK | a = fundsWrong | a = cancel)
+TRANS  s = askAmount2      -> (a = none | a = fundsOK | a = fundsWrong | a = cancel)
+TRANS  s = askAmount3      -> (a = none | a = fundsOK | a = fundsWrong | a = cancel)
+TRANS  s = tryAgainAmount2 -> (a = none | a = ack | a = cancel)
+TRANS  s = tryAgainAmount3 -> (a = none | a = ack | a = cancel)
+TRANS  s = takeMoney       -> (a = none | a = moneyOut)
+TRANS  s = takeCard        -> (a = none | a = cardOut)
+TRANS  s = cardTaken       -> (a = none)
+TRANS  s = thanksGoodbye   -> (a = none)
+TRANS  s = sorry           -> (a = none)
+
+
+
+
+
+
+
+
+

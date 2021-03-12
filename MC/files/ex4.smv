@@ -1,0 +1,26 @@
+MODULE main
+VAR
+  s : {s0, s1, s2};
+  a : boolean;
+  b : boolean;
+ASSIGN
+  init(s) := {s0, s2};
+  
+  next(s) := case
+    s = s0 : s1;
+    s = s1 : {s1, s2};
+    s = s2 : s2;
+  esac;
+  
+  a := TRUE;
+  
+  b := case
+    s = s0 : TRUE;
+    s = s1 : TRUE;
+    TRUE : FALSE;
+  esac;
+
+LTLSPEC G a
+LTLSPEC X (a & b)
+LTLSPEC G (!b -> G(a & !b))
+LTLSPEC b U (a & !b)

@@ -1,0 +1,8 @@
+check_ltlspec -p "G F (light)" -o atp_result1.txt
+check_ltlspec -p "G F (brake)" -o atp_result2.txt
+check_ltlspec -p "F G (brake)" -o atp_result3.txt
+check_ltlspec -p "F (brake -> (F !brake))" -o atp_result4.txt
+check_ltlspec -p "F (brake & (F !brake))" -o atp_result5.txt
+check_ltlspec -p "F (brake & !light)" -o atp_result6.txt
+check_ltlspec -p "F brake" -o atp_result7.txt
+check_ltlspec -p "G !brake" -o atp_result8.txt

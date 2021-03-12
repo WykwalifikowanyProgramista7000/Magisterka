@@ -1,0 +1,34 @@
+MODULE main
+VAR
+  c : boolean;
+  g : boolean;
+  w : boolean;
+  f : boolean;
+  move : {fc, fg, fw, f_};
+ASSIGN
+  init(c) := FALSE;
+  init(g) := FALSE;
+  init(w) := FALSE;
+  init(f) := FALSE;
+  
+  move := case 
+    f = c & c = g & g = w : {fc,fg,fw,f_};
+    f = c & c = g : {fc,fg,f_};
+    f = c & c = w : {fc,fw,f_};
+    f = g & g = w : {fg,fw,f_};
+    f = c : {fc,f_};
+    f = g : {fg,f_};
+    f = w : {fw,f_};
+    TRUE : f_;
+  esac;
+
+TRANS move = fc -> f = c & next(c) = !c & next(f) = !f & next(g) = g & next(w) = w
+TRANS move = fg -> f = g & next(g) = !g & next(f) = !f & next(c) = c & next(w) = w
+TRANS move = fw -> f = w & next(w) = !w & next(f) = !f & next(c) = c & next(g) = g
+TRANS move = f_ -> next(f) = !f & next(c) = c & next(g) = g & next(w) = w
+
+--CTLSPEC ! E[((g = c | g = w) -> g = f) U (c & g & w & f)]
+
+ 
+  
+  

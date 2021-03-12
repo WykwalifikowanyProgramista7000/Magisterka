@@ -1,0 +1,32 @@
+MODULE main
+VAR
+  s : {s0, s1, s2, s3, s4};
+  a : boolean;
+  b : boolean;
+ASSIGN
+  init(s) := s0;
+  
+  next(s) := case
+    s = s0 : s1;
+    s = s1 : s2;
+    s = s2 : {s3, s4};
+    s = s3 : {s2, s4};
+    s = s4 : s2;
+  esac;
+  
+  a := case
+    s = s3 : FALSE;
+    TRUE : TRUE;
+  esac;
+  
+  b := case
+    s = s3 : TRUE;
+    TRUE : FALSE;
+  esac;
+
+JUSTICE a;
+JUSTICE b;
+CTLSPEC AG(a -> AF b) ; 
+
+
+

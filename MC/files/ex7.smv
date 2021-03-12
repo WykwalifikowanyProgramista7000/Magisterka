@@ -1,0 +1,27 @@
+MODULE main
+VAR
+  s : {s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13};
+ASSIGN
+  init(s) := s0;
+  
+  next(s) := case
+    s = s0 : {s1, s2, s3};
+    s = s1 : {s4, s5, s6};
+    s = s2 : {s6, s7};
+    s = s3 : {s7, s8};
+    s = s4 : s0;
+    s = s5 : s10;
+    s = s6 : s11;
+    s = s7 : {s11, s12};
+    s = s8 : {s8, s12};
+    s = s9 : s4;
+    s = s10 : s9;
+    s = s11 : s10;
+    s = s12 : s13;
+    s = s13 : s13;
+  esac;
+
+LTLSPEC (s = s5) -> X(s = s10)
+CTLSPEC EG (s = s0 | s = s1 | s = s4)
+CTLSPEC AG EF (s = s13)
+  

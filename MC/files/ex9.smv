@@ -1,0 +1,18 @@
+MODULE main
+VAR
+  s : {s0, s1, s2};
+  a : boolean;
+  b : 0 .. 2;
+ASSIGN
+  init(s) := {s0,s2};
+  init(a) := TRUE;
+  init(b) := case
+    s = s0 : 1;
+    TRUE   : 0;
+  esac;
+  
+TRANS s = s0 -> next(s) = s1 & next(a) = FALSE & next(b) = 2
+TRANS s = s1 -> (next(s) = s0 & next(a) = TRUE & next(b) = 1)
+              | (next(s) = s2 & next(a) = TRUE & next(b) = 0)
+TRANS s = s2 -> next(s) = s2 & next(a) = a & next(b) = b
+

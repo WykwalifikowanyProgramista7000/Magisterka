@@ -1,0 +1,54 @@
+MODULE main
+VAR
+  light : boolean;
+  sound : boolean;
+  brake : boolean;
+  button : boolean;
+  delay : 0 .. 9;
+  timer : 0 .. 60;
+  
+ASSIGN
+  init(light) := TRUE;
+  init(sound) := FALSE;
+  init(brake) := FALSE;
+  init(button) := FALSE;
+  init(delay) := 0;
+  init(timer) := 0;
+  
+  next(timer) := case
+    timer = 59 : 0;
+    timer < 60 : timer + 1;
+    TRUE : timer;
+  esac;
+  
+  next(delay) := case
+    button = TRUE : 0;
+    button = FALSE & light = TRUE & delay < 9 : delay + 1;
+    TRUE : delay;
+  esac;
+  
+  next(light) := case
+    timer = 59 & light = FALSE : TRUE;
+    light = TRUE & button = TRUE : FALSE;
+    TRUE : light;
+  esac;
+
+  next(sound) := case
+    delay = 6 & button = FALSE : TRUE;
+    sound = TRUE & button = TRUE : FALSE;
+    TRUE : sound;
+  esac;
+
+  next(brake) := case
+    delay = 9 & button = FALSE : TRUE;
+    TRUE : brake;
+  esac;
+
+  next(button) := case
+    button = TRUE : FALSE;
+    light = TRUE & brake = FALSE : {FALSE, TRUE};
+    TRUE : FALSE;
+  esac;
+
+-- JUSTICE button;
+
