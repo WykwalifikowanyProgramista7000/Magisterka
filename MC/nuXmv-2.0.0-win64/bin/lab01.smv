@@ -1,0 +1,46 @@
+MODULE main
+VAR
+  sensor : boolean;
+  master_light : boolean;
+  slave_light : boolean;
+  slave_green_timer : 0 .. 10;
+  sensor_timer : 0 .. 20;
+
+ASSIGN
+  init(sensor) := FALSE;
+  init(master_light) := TRUE;
+  init(slave_light) := TRUE;
+  init(slave_green_timer) := 0;
+  init(sensor_timer) := 0;
+  
+  next(master_light) := case
+    slave_light = TRUE  : FALSE;
+    slave_light = FALSE : TRUE;
+    TRUE : master_light;
+    esac;
+    
+  next(slave_light) := case
+    slave_green_timer > 0 : TRUE;
+    slave_green_timer = 0 : FALSE;
+    TRUE : slave_light;
+    esac;
+    
+  next(slave_green_timer) := case
+    sensor = TRUE & sensor_timer = 0 : 1;
+    slave_green_timer >= 9 : 0;
+    slave_green_timer > 0 : slave_green_timer + 1;
+    TRUE : slave_green_timer;
+    esac;
+    
+  next(sensor_timer) := case
+    sensor = TRUE & sensor_timer = 0 : 1;
+    sensor_timer >= 19 : 0;
+    sensor_timer > 0 : sensor_timer + 1;
+    TRUE : sensor_timer;
+    esac;
+    
+  next(sensor) := case
+    sensor = TRUE : FALSE;
+    sensor = FALSE & sensor_timer = 0 : {FALSE, TRUE};
+    TRUE : FALSE;
+    esac;
