@@ -1,4 +1,5 @@
-function [matrix_result, H, T_e, max_dT, dT_characteristic] = sim_board(matrix_in, sim_duration, K, Cw, ro, A, dt, Epsilon, debug)
+%% sim_board.m 
+function [matrix_result, H, T_e, max_dT, dT_characteristic] = sim_board(matrix_in, sim_duration, K, Cw, ro, A, D, h, P, dt, Epsilon, debug)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -7,13 +8,13 @@ T1 = Ke0 + 10;
 T2 = Ke0 + 80;
 T3 = Ke0 + 20;
 
-% additional parameters
 dx = A/size(matrix_in,1);
 dy = A/size(matrix_in,1);
 dT_characteristic = [];
 
 % preprocessing the out matrix
 matrix_out = ones(size(matrix_in,1),size(matrix_in,1)).*T3;
+
 for i = 1 : size(matrix_in,1)
     for j = 1 : size(matrix_in,1)
         if matrix_in(i,j) == 0 
@@ -25,7 +26,7 @@ for i = 1 : size(matrix_in,1)
             continue;
         end
         if matrix_in(i,j) == 8
-            matrix_out(i,j) = T2;
+            matrix_out(i,j) = T1;
             continue;
         end
     end
@@ -48,14 +49,13 @@ for H = 1 : dt : sim_duration
             end
             
             if matrix_in(i,j) == 8
-                matrix_out(i,j) = T2;
-                continue;
+                matrix_out(i,j) = matrix_out(i,j) + P*dt/(Cw*D^2*h*ro);
             end
             
             dT_x = ((K*dt)/(Cw*ro*(dx^2)))*(matrix_out(i+1,j)-2*matrix_out(i,j)+matrix_out(i-1,j));
             dT_y = ((K*dt)/(Cw*ro*(dy^2)))*(matrix_out(i,j+1)-2*matrix_out(i,j)+matrix_out(i,j-1));
             
-            if(abs(dT_x + dT_y) > max_dT)
+            if(abs(dT_x + dT_y) > max_dT && matrix_in(i,j) ~= 8)
                 max_dT = abs(dT_x + dT_y);
             end
             
@@ -84,16 +84,19 @@ for H = 1 : dt : sim_duration
         return
     end
     
-    %%% debug %%%
-    if(mod(H,1) == 0 && debug == 1)
+    % debug %
+    if((mod(H,100) == 0 || H == 0) && debug == 1)
         %pause(1)
-        figure(1)
+        figure(123)
+        subplot(2,1,1)
         imagesc(matrix_out);
         title(H)
+        
+        subplot(2,1,2)
+        plot(dT_characteristic)
+        title("max dT")
     end
-    %%% debug %%%
 end
-
 T_e = -1;
 H = sim_duration;
 matrix_result = matrix_out;

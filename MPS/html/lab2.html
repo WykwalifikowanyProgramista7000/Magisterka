@@ -1,0 +1,333 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lab2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-20"><meta name="DC.source" content="lab2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">phisical &amp; simulation parameters</a></li><li><a href="#3">stainless steel</a></li><li><a href="#4">cooper</a></li><li><a href="#5">aluminum</a></li><li><a href="#6">data</a></li></ul></div><pre class="codeinput">matrix_4x4 = [
+    1 1 1 1 1 1 1 1;
+    1 2 2 8 8 2 2 1;
+    1 1 1 8 8 1 1 1;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 1 1 1 0 0;
+];
+
+matrix_1x1 = [
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 1 1 1 1 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 1 1 1 1 1;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0;
+];
+
+matrix_05x05 = repelem(matrix_1x1,2,2);
+matrix_02x02 = repelem(matrix_1x1,5,5);
+
+<span class="comment">%imagesc(matrix_02x02);</span>
+</pre><h2 id="2">phisical &amp; simulation parameters</h2><pre class="codeinput">ss_K = 58;
+ss_Cw = 450;
+ss_ro = 7860;
+ss_Epsilon = 0.001;
+
+cu_K = 401;
+cu_Cw = 380;
+cu_ro = 8920;
+cu_Epsilon = 0.001;
+
+al_K = 237;
+al_Cw = 900;
+al_ro = 2700;
+al_Epsilon = 0.001;
+
+A = 0.3;
+N = 0.2;
+C = 0.05;
+D = 0.1;
+
+dt = 0.01;
+sim_duration = 10000;
+</pre><h2 id="3">stainless steel</h2><pre class="codeinput">fprintf(<span class="string">"steel..."</span>);
+[ss_4x4_out,   ss_4x4_H,   ss_4x4_T_e,   ss_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_1x1_out,   ss_1x1_H,   ss_1x1_T_e,   ss_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_05x05_out, ss_05x05_H, ss_05x05_T_e, ss_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_02x02_out, ss_02x02_H, ss_02x02_T_e, ss_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+fprintf(<span class="string">"done\n"</span>);
+</pre><pre class="codeoutput">steel...done
+</pre><h2 id="4">cooper</h2><pre class="codeinput">fprintf(<span class="string">"cooper..."</span>);
+[cu_4x4_out,   cu_4x4_H,   cu_4x4_T_e,   cu_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_1x1_out,   cu_1x1_H,   cu_1x1_T_e,   cu_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_05x05_out, cu_05x05_H, cu_05x05_T_e, cu_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_02x02_out, cu_02x02_H, cu_02x02_T_e, cu_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+fprintf(<span class="string">"done\n"</span>);
+</pre><pre class="codeoutput">cooper...done
+</pre><h2 id="5">aluminum</h2><pre class="codeinput">fprintf(<span class="string">"aluminum..."</span>);
+[al_4x4_out,   al_4x4_H,   al_4x4_T_e,   al_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_1x1_out,   al_1x1_H,   al_1x1_T_e,   al_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_05x05_out, al_05x05_H, al_05x05_T_e, al_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_02x02_out, al_02x02_H, al_02x02_T_e, al_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+fprintf(<span class="string">"done\n"</span>);
+</pre><pre class="codeoutput">aluminum...done
+</pre><h2 id="6">data</h2><pre class="codeinput">T_e_data = [
+    ss_4x4_T_e   cu_4x4_T_e   al_4x4_T_e;
+    ss_1x1_T_e   cu_1x1_T_e   al_1x1_T_e;
+    ss_05x05_T_e cu_05x05_T_e al_05x05_T_e;
+    ss_02x02_T_e cu_02x02_T_e al_02x02_T_e;
+   ];
+
+H_data = [
+    ss_4x4_H   cu_4x4_H   al_4x4_H;
+    ss_1x1_H   cu_1x1_H   al_1x1_H;
+    ss_05x05_H cu_05x05_H al_05x05_H;
+    ss_02x02_H cu_02x02_H al_02x02_H;
+   ];
+
+figure(<span class="string">'name'</span>, <span class="string">'panie mirku nieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'</span>, <span class="string">'Position'</span>, [300 300 1200 500])
+subplot(1,2,1)
+bar3(T_e_data, 0.5)
+ax = gca;
+ax.XTickLabel = {<span class="string">'SS'</span>,<span class="string">'Cu'</span>, <span class="string">'Al'</span>};
+ax.YTickLabel = {<span class="string">'40'</span>,<span class="string">'10'</span>, <span class="string">'5'</span>, <span class="string">'2'</span>};
+xlabel(<span class="string">'Plate Material'</span>)
+ylabel(<span class="string">'Model Resolution [mm]'</span>)
+zlabel(<span class="string">'Final Temperature [K]'</span>)
+title(<span class="string">"Temperature"</span>)
+
+subplot(1,2,2)
+bar3(H_data.*dt, 0.5)
+ax = gca;
+ax.XTickLabel = {<span class="string">'SS'</span>,<span class="string">'Cu'</span>, <span class="string">'Al'</span>};
+ax.YTickLabel = {<span class="string">'40'</span>,<span class="string">'10'</span>, <span class="string">'5'</span>, <span class="string">'2'</span>};
+xlabel(<span class="string">'Plate Material'</span>)
+ylabel(<span class="string">'Model Resolution [mm]'</span>)
+zlabel(<span class="string">'Simulation Time [s]'</span>)
+title(<span class="string">"Time"</span>)
+</pre><img vspace="5" hspace="5" src="lab2_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+matrix_4x4 = [
+    1 1 1 1 1 1 1 1;
+    1 2 2 8 8 2 2 1;
+    1 1 1 8 8 1 1 1;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 2 2 1 0 0;
+    0 0 1 1 1 1 0 0;
+];
+
+matrix_1x1 = [
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 2 2 2 2 2 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 2 2 2 2 2 1;
+    1 1 1 1 1 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 1 1 1 1 1;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 8 8 8 8 8 8 8 8 8 8 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 0 0 0 0 0;
+    0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0;
+];
+
+matrix_05x05 = repelem(matrix_1x1,2,2);
+matrix_02x02 = repelem(matrix_1x1,5,5);
+
+%imagesc(matrix_02x02);
+
+%% phisical & simulation parameters 
+ss_K = 58;
+ss_Cw = 450;
+ss_ro = 7860;
+ss_Epsilon = 0.001;
+
+cu_K = 401;
+cu_Cw = 380;
+cu_ro = 8920;
+cu_Epsilon = 0.001;
+
+al_K = 237;
+al_Cw = 900;
+al_ro = 2700;
+al_Epsilon = 0.001;
+
+A = 0.3;
+N = 0.2;
+C = 0.05;
+D = 0.1;
+
+dt = 0.01;
+sim_duration = 10000;
+
+
+%% stainless steel
+fprintf("steel...");
+[ss_4x4_out,   ss_4x4_H,   ss_4x4_T_e,   ss_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_1x1_out,   ss_1x1_H,   ss_1x1_T_e,   ss_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_05x05_out, ss_05x05_H, ss_05x05_T_e, ss_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+[ss_02x02_out, ss_02x02_H, ss_02x02_T_e, ss_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, ss_K, ss_Cw, ss_ro, A, dt, ss_Epsilon, 0);
+fprintf("done\n");
+%% cooper
+fprintf("cooper...");
+[cu_4x4_out,   cu_4x4_H,   cu_4x4_T_e,   cu_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_1x1_out,   cu_1x1_H,   cu_1x1_T_e,   cu_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_05x05_out, cu_05x05_H, cu_05x05_T_e, cu_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+[cu_02x02_out, cu_02x02_H, cu_02x02_T_e, cu_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, cu_K, cu_Cw, cu_ro, A, dt, cu_Epsilon, 0);
+fprintf("done\n");
+
+%% aluminum
+fprintf("aluminum...");
+[al_4x4_out,   al_4x4_H,   al_4x4_T_e,   al_max_4x4_dT]    = sim_board(matrix_4x4,     sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_1x1_out,   al_1x1_H,   al_1x1_T_e,   al_max_1x1_dT]    = sim_board(matrix_1x1,     sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_05x05_out, al_05x05_H, al_05x05_T_e, al_max_05x05_dT]  = sim_board(matrix_05x05,   sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+[al_02x02_out, al_02x02_H, al_02x02_T_e, al_max_02x02_dT]  = sim_board(matrix_02x02,   sim_duration, al_K, al_Cw, al_ro, A, dt, al_Epsilon, 0);
+fprintf("done\n");
+
+%% data
+T_e_data = [
+    ss_4x4_T_e   cu_4x4_T_e   al_4x4_T_e;
+    ss_1x1_T_e   cu_1x1_T_e   al_1x1_T_e;
+    ss_05x05_T_e cu_05x05_T_e al_05x05_T_e;
+    ss_02x02_T_e cu_02x02_T_e al_02x02_T_e;
+   ];
+
+H_data = [
+    ss_4x4_H   cu_4x4_H   al_4x4_H;
+    ss_1x1_H   cu_1x1_H   al_1x1_H;
+    ss_05x05_H cu_05x05_H al_05x05_H;
+    ss_02x02_H cu_02x02_H al_02x02_H;
+   ];
+
+figure('name', 'panie mirku nieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', 'Position', [300 300 1200 500])
+subplot(1,2,1)
+bar3(T_e_data, 0.5)
+ax = gca;
+ax.XTickLabel = {'SS','Cu', 'Al'};
+ax.YTickLabel = {'40','10', '5', '2'};
+xlabel('Plate Material')
+ylabel('Model Resolution [mm]')
+zlabel('Final Temperature [K]')
+title("Temperature")
+
+subplot(1,2,2)
+bar3(H_data.*dt, 0.5)
+ax = gca;
+ax.XTickLabel = {'SS','Cu', 'Al'};
+ax.YTickLabel = {'40','10', '5', '2'};
+xlabel('Plate Material')
+ylabel('Model Resolution [mm]')
+zlabel('Simulation Time [s]')
+title("Time")
+
+
+
+##### SOURCE END #####
+--></body></html>
