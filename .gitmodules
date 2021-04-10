@@ -5,3 +5,5 @@
 [submodule "AI\\lab-05.-realistic-use-case"]
 	path = AI\\lab-05.-realistic-use-case
 	url = https://gitlab.com/rylko_dziuba/lab-05.-realistic-use-case.git
+[submodule "AI/lab-05.-realistic-use-case"]
+	url = https://gitlab.com/rylko_dziuba/lab-05.-realistic-use-case.git
