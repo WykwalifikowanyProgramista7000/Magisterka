@@ -2,3 +2,6 @@
 	url = https://gitlab.com/rylko_dziuba/lab-02-basic-cp-problems.git
 [submodule "AI/lab-04-search-modelling"]
 	url = https://gitlab.com/rylko_dziuba/lab-04-search-modelling.git
+[submodule "AI\\lab-05.-realistic-use-case"]
+	path = AI\\lab-05.-realistic-use-case
+	url = https://gitlab.com/rylko_dziuba/lab-05.-realistic-use-case.git
